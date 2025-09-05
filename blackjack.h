@@ -4,10 +4,6 @@
 
 using namespace std;
 
-char espadas = 69;
-char paus = 80;
-char ouros = 79;
-char copas = 67;
 
 const int MAX_CARTAS = 52;
 
@@ -17,73 +13,47 @@ int randValor = 0;
 
 struct Carta {
     int valor;
-    int naipe;
+    char naipe;
 };
 
-struct Baralho {
+struct Baralho {         //// USADA TANTO PARA REPRESENTAR O BARALHO QUANTO PARA MÃO DO DEALER E DO JOGADRO
     Carta cartas[MAX_CARTAS];
     int ultimo;
 };
 
 void inicializarBaralho(Baralho &baralho) {
     int index = 0;
-    char naipes[] = {'P', 'E', 'C', 'O'};
     
-    for (int n = 0; n <= 4; n++) {
-        for (int v = 1; v <= 13; v++) {
-            baralho.cartas[index].naipe = naipes[n];
-            baralho.cartas[index].valor = v;
-            index++;
-
+    for (int n = 0; n <= 3; n++) {
+        char naipeAtual;
             switch (n) {
                 case 0:
-                    baralho.cartas[index].naipe = espadas;
+                    naipeAtual = 'P';
                     break;
                 case 1:
-                    baralho.cartas[index].naipe = paus;
+                    naipeAtual = 'E';
                     break;
                 case 2:
-                    baralho.cartas[index].naipe = ouros;
+                    naipeAtual = 'O';
                     break;
                 case 3:
-                    baralho.cartas[index].naipe = copas;
+                    naipeAtual = 'C';
                     break;
-            }
+        }
+        for (int v = 1; v <= 13; v++) {
+            baralho.cartas[index].naipe = naipeAtual;
+            baralho.cartas[index].valor = v;
+            index++;
         }
     }
     baralho.ultimo = 51;
 };
 
-// Carta sortearCarta() {
-//     randNaipe = rand() % 4;
-//     randValor = rand() % 13;
-
-//     Carta novaCarta;
-
-//     switch (randNaipe) {
-//         case 0:
-//             novaCarta.naipe = espadas;
-//             break;
-//         case 1:
-//             novaCarta.naipe = paus;
-//             break;
-//         case 2:
-//             novaCarta.naipe = ouros;
-//             break;
-//         case 3:
-//             novaCarta.naipe = copas;
-//             break;
-//     }
-
-//     novaCarta.valor = randValor;
-//     return novaCarta;
-// }
-
 
 void printarBaralho(Baralho baralho) {
     for (int i = 0; i <= baralho.ultimo; i++) {
         cout << baralho.cartas[i].valor;
-        printf("%c", baralho.cartas[i].naipe);
+        cout << baralho.cartas[i].naipe;
         cout << ' ';
     }
 }
@@ -97,6 +67,18 @@ Carta sortearCarta(Baralho &baralho) {
 
     Carta cartaSorteada = baralho.cartas[indiceSorteado];
 
+    baralho.cartas[indiceSorteado] = baralho.cartas[baralho.ultimo];
 
+    baralho.ultimo--;
+
+    return cartaSorteada;
 }
 
+void adicionarCarta(Baralho &mao, Carta carta) {
+    if (mao.ultimo >= MAX_CARTAS) {
+        cout << "ERRO! MÃO CHEIA!";
+        return;
+    }
+    mao.ultimo++;
+    mao.cartas[mao.ultimo] = carta;
+}
