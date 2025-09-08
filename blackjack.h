@@ -23,7 +23,7 @@ struct Baralho {         //// USADA TANTO PARA REPRESENTAR O BARALHO QUANTO PARA
 void inicializarBaralho(Baralho &baralho) {
     int index = 0;
     
-    for (int n = 0; n <= 3; n++) {
+    for ( int n = 0; n <= 3; n++ ) {
         std::string naipeAtual;
             switch (n) {
                 case 0:
@@ -43,7 +43,7 @@ void inicializarBaralho(Baralho &baralho) {
                     naipeAtual = "♥";
                     break;
         }
-        for (int v = 1; v <= 13; v++) {
+        for ( int v = 1; v <= 13; v++ ) {
             baralho.cartas[index].naipe = naipeAtual;
             baralho.cartas[index].valor = v;
             index++;
@@ -54,7 +54,7 @@ void inicializarBaralho(Baralho &baralho) {
 
 
 void printarBaralho(Baralho baralho) {
-    for (int i = 0; i <= baralho.ultimo; i++) {
+    for ( int i = 0; i <= baralho.ultimo; i++ ) {
         std::cout << baralho.cartas[i].valor;
         std::cout << baralho.cartas[i].naipe;
         std::cout << ' ';
@@ -62,7 +62,7 @@ void printarBaralho(Baralho baralho) {
 }
 
 Carta sortearCarta(Baralho &baralho) {
-    if (baralho.ultimo < 0 ) {
+    if ( baralho.ultimo < 0 ) {
         std::cout << "ERRO!";
     };
 
@@ -78,7 +78,7 @@ Carta sortearCarta(Baralho &baralho) {
 }
 
 void adicionarCarta(Baralho &mao, Carta carta) {
-    if (mao.ultimo >= MAX_CARTAS) {
+    if ( mao.ultimo >= MAX_CARTAS ) {
         std::cout << "ERRO! MÃO CHEIA!";
         return;
     }
@@ -91,7 +91,7 @@ void mostrarMao(Baralho &mao, bool ehDealer, bool primeiraRodada) {
         std::cout << "ERRO! A MÃO ESTÁ VAZIA";
     }
 
-    if (ehDealer == true && primeiraRodada && true) {
+    if ( ehDealer == true && primeiraRodada && true ) {
         std::cout << mao.cartas[0].valor;
         std::cout << mao.cartas[0].naipe;
 
@@ -108,12 +108,38 @@ void mostrarMao(Baralho &mao, bool ehDealer, bool primeiraRodada) {
 }
 
 
-void iniciarJogo (Baralho &mao, Baralho baralho) {
+void iniciarJogo (Baralho &mao, Baralho &baralho) {
     for ( int i = 0; i < 2; i++ ) {
         adicionarCarta(mao, sortearCarta(baralho));
     }
 }
 
-void pedirCarta (Baralho &mao, Baralho baralho) {
+void pedirCarta (Baralho &mao, Baralho &baralho) {
     adicionarCarta(mao, sortearCarta(baralho));
+}
+
+int calcularPontuacaoAses (int pontuacaoAtual, int asesRestantes) {
+    if ( pontuacaoAtual <= 21 || asesRestantes == 0) {
+        return pontuacaoAtual;
+    }
+
+    return calcularPontuacaoAses(pontuacaoAtual - 10, asesRestantes - 1);
+}
+
+int calcularPontuacao (Baralho &mao, int Ases = 0) {
+    int pontuacaoTotal = 0;
+    int totalDeAses = 0;
+    for (int i = 0; i <= mao.ultimo; i++) {
+        if ( mao.cartas[i].valor == 11 || mao.cartas[i].valor == 12 || mao.cartas[i].valor == 13) {
+            pontuacaoTotal += 10;
+        } 
+        else if ( mao.cartas[i].valor == 1 ) {
+            pontuacaoTotal += 11;
+            totalDeAses++;
+        }
+        else {
+            pontuacaoTotal += mao.cartas[i].valor;
+        }
+    }
+    return calcularPontuacaoAses(pontuacaoTotal, totalDeAses);
 }
