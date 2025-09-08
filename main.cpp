@@ -1,9 +1,13 @@
 #include "blackjack.h"
 #include <stdlib.h>
 #include <time.h>
+#include <windows.h>
 
 
 int main() {
+
+    SetConsoleOutputCP(CP_UTF8);
+    SetConsoleCP(CP_UTF8);
 
     srand( time (0) );
 
@@ -22,7 +26,7 @@ int main() {
     iniciarJogo(maoJogador, baralhoPrincipal);
 
     mostrarMao(maoDealer, true, primeiraRodada);
-    cout << endl;
+    std::cout << std::endl;
 
     mostrarMao(maoJogador, false, primeiraRodada);
     primeiraRodada = false;

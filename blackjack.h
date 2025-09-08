@@ -3,8 +3,6 @@
 #include <iostream>
 #include <string>
 
-using namespace std;
-
 
 const int MAX_CARTAS = 52;
 
@@ -14,7 +12,7 @@ int randValor = 0;
 
 struct Carta {
     int valor;
-    string naipe;
+    std::string naipe;
 };
 
 struct Baralho {         //// USADA TANTO PARA REPRESENTAR O BARALHO QUANTO PARA MÃO DO DEALER E DO JOGADRO
@@ -26,7 +24,7 @@ void inicializarBaralho(Baralho &baralho) {
     int index = 0;
     
     for (int n = 0; n <= 3; n++) {
-        string naipeAtual;
+        std::string naipeAtual;
             switch (n) {
                 case 0:
                     //naipeAtual = "P"; 
@@ -57,15 +55,15 @@ void inicializarBaralho(Baralho &baralho) {
 
 void printarBaralho(Baralho baralho) {
     for (int i = 0; i <= baralho.ultimo; i++) {
-        cout << baralho.cartas[i].valor;
-        cout << baralho.cartas[i].naipe;
-        cout << ' ';
+        std::cout << baralho.cartas[i].valor;
+        std::cout << baralho.cartas[i].naipe;
+        std::cout << ' ';
     }
 }
 
 Carta sortearCarta(Baralho &baralho) {
     if (baralho.ultimo < 0 ) {
-        cout << "ERRO!";
+        std::cout << "ERRO!";
     };
 
     int indiceSorteado = rand() % (baralho.ultimo + 1);
@@ -81,7 +79,7 @@ Carta sortearCarta(Baralho &baralho) {
 
 void adicionarCarta(Baralho &mao, Carta carta) {
     if (mao.ultimo >= MAX_CARTAS) {
-        cout << "ERRO! MÃO CHEIA!";
+        std::cout << "ERRO! MÃO CHEIA!";
         return;
     }
     mao.ultimo++;
@@ -90,21 +88,21 @@ void adicionarCarta(Baralho &mao, Carta carta) {
 
 void mostrarMao(Baralho &mao, bool ehDealer, bool primeiraRodada) {
     if ( mao.ultimo == -1 ) {
-        cout << "ERRO! A MÃO ESTÁ VAZIA";
+        std::cout << "ERRO! A MÃO ESTÁ VAZIA";
     }
 
     if (ehDealer == true && primeiraRodada && true) {
-        cout << mao.cartas[0].valor;
-        cout << mao.cartas[0].naipe;
+        std::cout << mao.cartas[0].valor;
+        std::cout << mao.cartas[0].naipe;
 
         if ( mao.ultimo >= 1 ) {
-            cout << " ???";
+            std::cout << " ???";
         }
     } else {
         for ( int i = 0; i <= mao.ultimo; i++ ) {
-            cout << mao.cartas[i].valor;
-            cout << mao.cartas[i].naipe;
-            cout << " ";
+            std::cout << mao.cartas[i].valor;
+            std::cout << mao.cartas[i].naipe;
+            std::cout << " ";
         }
     }
 }
