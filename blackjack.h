@@ -113,3 +113,7 @@ void iniciarJogo (Baralho &mao, Baralho baralho) {
         adicionarCarta(mao, sortearCarta(baralho));
     }
 }
+
+void pedirCarta (Baralho &mao, Baralho baralho) {
+    adicionarCarta(mao, sortearCarta(baralho));
+}
