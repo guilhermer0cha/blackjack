@@ -33,7 +33,7 @@ int main() {
 
 
     
-    // efetuar loop para distribuicao de cartas iniciais do jogo !!
+    // efetuar loop pricipal do jogo com logicas de pedir cartas etc
 
 
 
