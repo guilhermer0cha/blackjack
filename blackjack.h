@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include <iostream>
+#include <string>
 
 using namespace std;
 
@@ -13,7 +14,7 @@ int randValor = 0;
 
 struct Carta {
     int valor;
-    char naipe;
+    string naipe;
 };
 
 struct Baralho {         //// USADA TANTO PARA REPRESENTAR O BARALHO QUANTO PARA MÃO DO DEALER E DO JOGADRO
@@ -25,19 +26,23 @@ void inicializarBaralho(Baralho &baralho) {
     int index = 0;
     
     for (int n = 0; n <= 3; n++) {
-        char naipeAtual;
+        string naipeAtual;
             switch (n) {
                 case 0:
-                    naipeAtual = 'P';
+                    //naipeAtual = "P"; 
+                    naipeAtual = "♣";
                     break;
                 case 1:
-                    naipeAtual = 'E';
+                    //naipeAtual = "E"; 
+                    naipeAtual = "♠";
                     break;
                 case 2:
-                    naipeAtual = 'O';
+                    //naipeAtual = "O"; 
+                    naipeAtual = "♦";
                     break;
                 case 3:
-                    naipeAtual = 'C';
+                    //naipeAtual = "C";
+                    naipeAtual = "♥";
                     break;
         }
         for (int v = 1; v <= 13; v++) {
@@ -81,4 +86,32 @@ void adicionarCarta(Baralho &mao, Carta carta) {
     }
     mao.ultimo++;
     mao.cartas[mao.ultimo] = carta;
+}
+
+void mostrarMao(Baralho &mao, bool ehDealer, bool primeiraRodada) {
+    if ( mao.ultimo == -1 ) {
+        cout << "ERRO! A MÃO ESTÁ VAZIA";
+    }
+
+    if (ehDealer == true && primeiraRodada && true) {
+        cout << mao.cartas[0].valor;
+        cout << mao.cartas[0].naipe;
+
+        if ( mao.ultimo >= 1 ) {
+            cout << " ???";
+        }
+    } else {
+        for ( int i = 0; i <= mao.ultimo; i++ ) {
+            cout << mao.cartas[i].valor;
+            cout << mao.cartas[i].naipe;
+            cout << " ";
+        }
+    }
+}
+
+
+void iniciarJogo (Baralho &mao, Baralho baralho) {
+    for ( int i = 0; i < 2; i++ ) {
+        adicionarCarta(mao, sortearCarta(baralho));
+    }
 }

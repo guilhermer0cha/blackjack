@@ -4,9 +4,10 @@
 
 
 int main() {
+
     srand( time (0) );
 
-    Baralho baralhoPrincipal;
+    Baralho baralhoPrincipal;               // baralho onde está concentrada todas as cartas do jogo
     inicializarBaralho(baralhoPrincipal);
 
     Baralho maoJogador;
@@ -15,13 +16,18 @@ int main() {
     Baralho maoDealer;
     maoDealer.ultimo = -1;
 
-    Carta carta1 = sortearCarta(baralhoPrincipal);
+    bool primeiraRodada = true;
 
-    printarBaralho(baralhoPrincipal);
+    iniciarJogo(maoDealer, baralhoPrincipal);
+    iniciarJogo(maoJogador, baralhoPrincipal);
+
+    mostrarMao(maoDealer, true, primeiraRodada);
     cout << endl;
-    cout << "primeira carta: ";
-    cout << carta1.valor;
-    cout << carta1.naipe;
+
+    mostrarMao(maoJogador, false, primeiraRodada);
+    primeiraRodada = false;
+
+
     
     // efetuar loop para distribuicao de cartas iniciais do jogo !!
 
